@@ -1,40 +1,85 @@
-// Dados do cardápio (substitui Google Sheets)
+// Dados simples para teste
 const menuData = {
     products: [
         {
             id: 1,
-            nomeproduto: 'Pizza Margherita',
-            descricao: 'Molho de tomate, mussarela, manjericão fresco',
+            nomeproduto: 'Pizza Calabresa',
+            descricao: 'Pizza deliciosa com calabresa',
             categoria: 'Pizzas',
-            availableSizes: [
-                { key: 'P', name: 'Pequena', price: 35.00 },
-                { key: 'M', name: 'Média', price: 45.00 },
-                { key: 'G', name: 'Grande', price: 55.00 }
-            ],
-            linkfoto: 'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=400'
+            availableSizes: [{ key: 'M', name: 'Média', price: 38.00 }],
+            linkfoto: 'https://drive.google.com/uc?export=view&id=1V1G_pXEiS-LJRckp06Yj27byJC1UvKm7'
         },
         {
             id: 2,
-            nomeproduto: 'Hambúrguer Artesanal',
-            descricao: 'Pão brioche, carne 180g, queijo, alface, tomate',
-            categoria: 'Lanches',
-            availableSizes: [
-                { key: 'P', name: 'Simples', price: 18.00 },
-                { key: 'G', name: 'Duplo', price: 25.00 }
-            ],
-            linkfoto: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400'
-        },
-        {
-            id: 3,
-            nomeproduto: 'Coca-Cola',
-            descricao: 'Lata 350ml gelada',
-            categoria: 'Bebidas',
-            availableSizes: [
-                { key: 'M', name: 'Lata', price: 6.00 }
-            ],
-            linkfoto: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400'
+            nomeproduto: 'Hambúrguer',
+            descricao: 'Hambúrguer artesanal',
+            categoria: 'Lanches', 
+            availableSizes: [{ key: 'P', name: 'Simples', price: 24.00 }],
+            linkfoto: 'https://drive.google.com/uc?export=view&id=17rjbam5cHXaA6N-_DgdMBMIuQEgzMD7a'
         }
     ],
+    whatsappNumber: '5511999999999'
+};
+
+class CardapioApp {
+    constructor() {
+        console.log('✅ App iniciando...');
+        this.cart = [];
+        this.init();
+    }
+
+    init() {
+        console.log('✅ Renderizando interface...');
+        this.renderProducts();
+    }
+
+    renderProducts() {
+        const root = document.getElementById('root');
+        
+        if (!root) {
+            console.error('❌ Elemento #root não encontrado!');
+            return;
+        }
+
+        root.innerHTML = `
+            <div class="container">
+                <div class="header">
+                    <h1>🍕 Cardápio Digital</h1>
+                    <p>Teste de funcionamento</p>
+                </div>
+                
+                <div class="products-grid">
+                    ${menuData.products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.linkfoto}" alt="${product.nomeproduto}" class="product-image">
+                            <h3>${product.nomeproduto}</h3>
+                            <p>${product.descricao}</p>
+                            <p><strong>R$ ${product.availableSizes[0].price.toFixed(2)}</strong></p>
+                            <button class="btn" onclick="app.addToCart(${product.id})">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        console.log('✅ Interface renderizada com sucesso!');
+    }
+
+    addToCart(productId) {
+        alert(`Produto ${productId} adicionado ao carrinho!`);
+        console.log('✅ Produto adicionado:', productId);
+    }
+}
+
+// Inicializa o app quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ DOM carregado, iniciando app...');
+    window.app = new CardapioApp();
+});
+
+console.log('✅ Script carregado, aguardando DOM...');    ],
     whatsappNumber: '5511999999999'
 };
 
@@ -328,4 +373,5 @@ class CardapioApp {
 }
 
 // Inicializa o app
+
 const app = new CardapioApp();
